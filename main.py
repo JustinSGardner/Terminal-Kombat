@@ -20,9 +20,3 @@ class Chararcter():
 character1 = Chararcter("Character1", 100, 5, 20)
 character2 = Chararcter("Character2", 100, 5, 0)
 character3 = Chararcter("Character3", 100, 5, 0)
-
-print(chris)
-print(enemy)
-
-chris.attack(enemy)
-print(enemy)
