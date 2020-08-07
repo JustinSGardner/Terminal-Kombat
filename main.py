@@ -91,17 +91,17 @@ def main():
                 print("%s is dead.\n" % (opponent_list[0].name))
                 opponent_list.pop(0)
                 if len(opponent_list) >= 1:
-                    keep_playing = input("Do you want to keep fighting? (y or n) ")
-                    if keep_playing == 'y':
-                        player.health += 10
-                        player.attackpower += 10
-                        player.defense += 10
-                        print("\nYou have absorbed power from your opponent!")
-                        print("Health: %d \nPower: %d \nDefense: %d \n" % (player.health, player.attackpower, player.defense))
-                        print("Your next opponent is: %s" % (opponent_list[0]))
-                    else:
-                        print("Quitters never win!")
-                        break
+                        keep_playing = input("Do you want to keep fighting? (y or n) ")
+                        if keep_playing == 'y':
+                            player.health += 10
+                            player.attackpower += 10
+                            player.defense += 10
+                            print("\nYou have absorbed power from your opponent!")
+                            print("Health: %d \nPower: %d \nDefense: %d \n" % (player.health, player.attackpower, player.defense))
+                            print("Your next opponent is: %s" % (opponent_list[0]))
+                        else:
+                            print("Quitters never win!")
+                            break
                 else: 
                     print(ending_story)
                     break
@@ -142,4 +142,11 @@ def main():
 
 
 main()
+
 #add play again statment
+# if __name__ == '__main__':
+#     while True:
+#         main()
+#         again = input('Would you like to play again? (y or n')
+#         if again in ('y'):
+#             break
