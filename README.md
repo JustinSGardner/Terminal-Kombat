@@ -2,4 +2,4 @@
 
 Chris, Brittani, Justin, Ryan
 
-![intro_screen](/intro_screen.png)
+![intro_screen](/images/intro_screen.png)
