@@ -27,7 +27,7 @@ character7 = Character("Cave Dolòn", 50, "high", "low",
 character8 = Character("Crazyeyes Chris", 50, "high",
                        "medium", 30, "Stare Of Death", "medium", "M")
 character9 = Character("Yelrac Zil", 50, "high", "high",
-                       30, "Teleport & Attack From Behind", "low", "F")
+                       30, "Teleport & Attack From Behind", "high", "F")
 
 
 def character_list():
