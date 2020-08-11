@@ -12,7 +12,7 @@ def story():
                                                                                                                                           
 
 
-You have hopefully chosen the strongest fighter to brave the TERMINAL KOMBAT TOURNAMENT OF GRAND CHAMPIONS. 
+You have hopefully chosen the strongest fighter to brave the TERMINAL KOMBAT: TOURNAMENT OF GRAND CHAMPIONS. 
 Each turn you will have the opportunity to choose an attack that will send your opponent straight into next week. 
 Attack and defense strength are randomly chosen each time according to the level of that attribute.
 For legal reasons, you also have the option to run away if you get too scared, but we all know that won't happen... right? 
@@ -20,6 +20,7 @@ For legal reasons, you also have the option to run away if you get too scared, b
 
 Good luck. 
     """)
+
 
 def ending_story():
     print("""
@@ -42,6 +43,7 @@ I honestly can't believe it. You beat everyone else! Congratulations!!!
 Now get out.
     """)
 
+
 def choose():
     print("""                                                                            
  _____ _____ _____ _____ _____ _____    __ __ _____ _____ _____    _____ _____ _____ _____ _____ _____ _____ 
@@ -50,9 +52,9 @@ def choose():
 |_____|__|__|_____|_____|_____|_____|    |_| |_____|_____|__|__|  |__|  |_____|_____|__|__| |_| |_____|__|__|
 
     """)
-    
 
-def title():    
+
+def title():
     print("""
     
 @@@@@@@  @@@@@@@@  @@@@@@@   @@@@@@@@@@   @@@  @@@  @@@   @@@@@@   @@@       
@@ -80,6 +82,7 @@ def title():
                                                                                          
     """)
 
+
 def fight_text():
     print("""
                                              
@@ -95,6 +98,7 @@ def fight_text():
  :        :     :: :: :    :   : :     :
  
     """)
+
 
 def game_over():
     print("""
@@ -112,6 +116,7 @@ def game_over():
     
     """)
 
+
 def victory():
     print("""
                                                                
@@ -127,6 +132,7 @@ def victory():
    :      :     :: :: :     :      : :  :    :   : :     :
 
     """)
+
 
 def fatality():
     print("""    
@@ -144,6 +150,7 @@ def fatality():
    
     """)
 
+
 def loading():
     print("""
 
@@ -160,4 +167,3 @@ $$$$$$$$\\$$$$$$  |\$$$$$$$ |\$$$$$$$ |$$ |$$ |  $$ |\$$$$$$$ |$$\ $$\ $$\
                                                       \______/
                                                                                                     
     """)
-
