@@ -2,7 +2,7 @@ import time
 import sys
 from pygame import mixer
 from classes import Character
-from text import victory, ending_story
+from text import victory, ending_story, fatality
 
 
 mixer.init()
@@ -99,14 +99,6 @@ def player_selection():
 def sound(file):
     sound = mixer.Sound("audio/%s" % file)
     return mixer.Sound.play(sound)
-
-
-def finish_sound(opponent):
-    if opponent.health < 15:
-        if opponent.sex == "F":
-            sound("finish_her.wav")
-        else:
-            sound("finish_him.wav")
 
 
 def opponent_dead_action(opponent_list):
