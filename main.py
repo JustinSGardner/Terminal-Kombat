@@ -83,7 +83,7 @@ def fight():
 # RUN AWAY!!!!
         elif user_input == "4":
             print("QUITTERS NEVER WIN!")
-            mixer.Sound.play(laugh_se)
+            sound("laugh.wav")
             time.sleep(3)
             sys.exit(0)
         else:
