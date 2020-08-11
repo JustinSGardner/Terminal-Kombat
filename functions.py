@@ -1,4 +1,5 @@
 import time
+import sys
 from pygame import mixer
 from classes import Character
 from text import victory, ending_story
@@ -13,16 +14,16 @@ character1 = Character("K. Relly", 50, "high", "high",
                        30, "Acid Drool", "low", "M")
 character2 = Character("Charg'n Ryno", 50, "medium", "low",
                        30, "Gor'n Horn Of Pain", "medium", "M")
-character3 = Character("Cave Dolòn", 50, "high", "low",
-                       30, "Nutcracker Choke", "high", "M")
+character3 = Character("NeckBreakin Brit", 50, "low",
+                       "high", 30, "Roundhouse Kick To The Face", "high", "F")
 character4 = Character("Snake Jodgel", 50, "high",
                        "medium", 30, "Eye Gouge", "low", "M")
 character5 = Character("Ron Sheid", 50, "low", "low",
                        30, "Bitch Slap", "high", "M")
 character6 = Character("Justin", 50, "high", "low", 30,
                        "Words Of Fury", "medium", "M")
-character7 = Character("NeckBreakin Brit", 50, "low",
-                       "high", 30, "Roundhouse Kick To The Face", "high", "F")
+character7 = Character("Cave Dolòn", 50, "high", "low",
+                       30, "Nutcracker Choke", "high", "M")
 character8 = Character("Crazyeyes Chris", 50, "high",
                        "medium", 30, "Stare Of Death", "medium", "M")
 character9 = Character("Yelrac Zil", 50, "high", "high",
@@ -100,6 +101,14 @@ def sound(file):
     return mixer.Sound.play(sound)
 
 
+def finish_sound(opponent):
+    if opponent.health < 15:
+        if opponent.sex == "F":
+            sound("finish_her.wav")
+        else:
+            sound("finish_him.wav")
+
+
 def opponent_dead_action(opponent_list):
     print("%s is dead.\n" % (opponent_list[0].name))
     print("")
@@ -122,6 +131,6 @@ def player_defeated(player):
 def ending():
     time.sleep(1.5)
     ending_story()
-    sound("flawless.wav")
+    sound("flawless_victory.wav")
     time.sleep(5)
     sys.exit(0)
