@@ -2,7 +2,7 @@ import random
 import time
 from text import story, title, fight_text, game_over, fatality, loading, ending_story, choose
 from classes import Character
-from functions import player_selection, ending, character_list, sound, player_defeated, opponent_dead_action
+from functions import player_selection, ending, character_list, sound, player_defeated, opponent_dead_action, finish_sound
 import sys
 
 # Music
@@ -54,14 +54,6 @@ def attack(type, opponent_list):
             ending()
 
 
-def finish_sound(opponent):
-    if opponent.health < 15:
-        if opponent.sex == "F":
-            sound("finish_her.wav")
-        else:
-            sound("finish_him.wav")
-
-
 # Game Fight function
 def fight():
 
@@ -91,7 +83,7 @@ def fight():
             time.sleep(3)
             sys.exit(0)
         else:
-            mixer.Sound.play(gong_se)
+            sound("gong.wav")
             print(
                 "Your keyboard skills need some work! You missed your chance to attack!\n")
             time.sleep(1.5)
@@ -102,13 +94,14 @@ def fight():
             if player.is_alive() == False:
                 player_defeated(player)
 
+
                 # print title screen
 title()
 
 
 time.sleep(2)
 sound("gong.wav")
-input("Press any key to continue\n \n \n")
+input("Press any enter to continue\n \n \n")
 
 choose()
 player = player_selection()
