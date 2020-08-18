@@ -1,152 +1,145 @@
-class Character():
-    def __init__(self, name, health, attackpower, defense):
-        self.name = name
-        self.health = health
-        self.attackpower = attackpower
-        self.defense = defense
+import random
+import time
+from text import story, title, fight_text, game_over, fatality, loading, ending_story, choose
+from classes import Character
+from functions import player_selection, ending, character_list, sound, player_defeated, opponent_dead_action
+import sys
 
-    def __str__(self):
-        return '''
-        Name: %s
-        Health: %s
-        Power: %d
-        Defense: %d
-        ''' % (self.name, self.health, self.attackpower, self.defense)
+# Music
+from pygame import mixer
+mixer.init()
+mixer.music.load("audio/TK_Intro_2.wav")
+mixer.music.play(-1)
 
-    def attack(self, opponent):
-        opponent.health -= self.attackpower
-        print("%s did %d damage to %s." %(self.name, self.attackpower, opponent.name))
-        print("%s has %d health left." % (opponent.name, opponent.health))
-        
-    def is_alive(self):
-        return self.health > 0
 
-#Story Line and Instructions
-story = """
-WELCOME TO THE TOURNAMENT.
-You have selected your fighter based on their special attributes and will now face your opponents in a fight to the DEATH.
-Each turn you will have the opportunity to choose attack or use an item, and your opponent will be able to attack you.
-After each round that you win, you will gain items that you can use to boost your health or give yourself extra attack power.
-"""
-story2 = """ """
+def keep_playing():
+    while len(opponent_list) >= 1:
+        keep_playing = input("Do you want to keep fighting? (y or n) ")
+        if keep_playing == 'y':
+            player.health = 50
+            print("\nYou have absorbed power from your opponent!")
+            print("You're back to Full Health: %d \n" % (player.health))
+            print("Your next opponent is: %s" % (opponent_list[0]))
+            play_list.pop(0)
 
-ending_story = """Peace out girl scout"""
+            for num in play_list:
+                if num == play_list[0]:
+                    sound("round" + num + ".wav")
 
-#characters
-character1 = Character("Character1", 10, 5, 20)
-character2 = Character("Character2", 100, 5, 0)
-character3 = Character("Character3", 10, 5, 0)
+            time.sleep(2)
+            fight_text()
+            sound("fight.wav")
+            fight()
+        elif keep_playing == 'n':
+            print("Quitters never win!\n\n")
+            sound("laugh.wav")
+            game_over()
+            sys.exit(0)
+        else:
+            sound("gong.wav")
+            print("Typing is hard, yo!\n")
 
-#print list of characters and their attributes
-print(character1, character2, character3)
-#Looping user input to choose character
-while True:
-    character_choice = input("Choose your player: ")
-    if character_choice == "Character1":
-        player = character1
-        break
-    elif character_choice == "Character2":
-        player = character2
-        break
-    elif character_choice == "Character3":
-        player = character3
-        break
-    else:
-        print("Spelling is hard, yo!")
-    
-#Make a character list and opponent list
-character_list = [character1, character2, character3]
+
+def attack(type, opponent_list):
+    # Player attacks opponent
+    type(opponent_list[0])
+    # mixer.Sound.play(special_se)
+    time.sleep(1.5)
+    if opponent_list[0].is_alive() == False:
+        opponent_dead_action(opponent_list)
+        if len(opponent_list) >= 1:
+            keep_playing()
+            play_list.pop(0)
+        else:
+            ending()
+
+
+# Game Fight function
+def fight():
+
+    while opponent_list[0].health > 0 and player.health > 0:
+        if opponent_list[0].health < 15:
+            if opponent_list[0].sex == "F":
+                sound("finish_her.wav")
+            else:
+                sound("finish_him.wav")
+        print("\nWhat do you want to do?")
+        print("1. Kick")
+        print("2. Punch")
+        print("3. %s" % (player.special_name))
+        print("4. Flee")
+        print(">>> ",)
+        user_input = input()
+# Kick
+        if user_input == "1":
+            attack(player.kick, opponent_list)
+# Punch
+        elif user_input == "2":
+            attack(player.punch, opponent_list)
+# Special
+        elif user_input == "3":
+            attack(player.special, opponent_list)
+
+# RUN AWAY!!!!
+        elif user_input == "4":
+            print("QUITTERS NEVER WIN!")
+            sound("laugh.wav")
+            time.sleep(3)
+            sys.exit(0)
+        else:
+            sound("gong.wav")
+            print(
+                "Your keyboard skills need some work! You missed your chance to attack!\n")
+            time.sleep(1.5)
+# Computer ATTACKS!
+        if player.health > 0:
+            # Opponent attacks player
+            opponent_list[0].rand_attack(player)
+            if player.is_alive() == False:
+                player_defeated(player)
+
+
+                # print title screen
+title()
+
+
+time.sleep(2)
+sound("gong.wav")
+input("Press enter to continue\n \n \n")
+
+choose()
+player = player_selection()
+character_list = character_list()
 opponent_list = []
-#when user selects a character, it moves remaining characters to opponents list for battle
 for character in character_list:
     if player != character:
         opponent_list.append(character)
 
-print("You have choosen %s." %(player))
-print(story)
 
-ready = input("Are you ready to fight? (y or n) ")
+play_list = ['1', '2', '3', '4', '5', '6', '7', '8']
+
+# when user selects a character, it moves remaining characters to opponents list for battle
+
+
+print("You have choosen %s" % (player))
+
+
+sound("excellent.wav")
+print()
+time.sleep(1)
+story()
+time.sleep(3)
+sound("test_your_luck.wav")
+ready = input("\nAre you ready to fight? (y or n) ")
 if ready == "y":
-    print("Good Luck!\n")
+    print("\nGET READY!\n")
+    sound("round1.wav")
 else:
-    print("Too bad! Time to fight!")
-    
-print("Your first opponent is: %s" %(opponent_list[0]))
-def main():
+    print("\nToo bad! Time to fight!\n")
+    sound("laugh.wav")
 
-    while opponent_list[0].health > 0 and player.health > 0:
-        
-        print()
-        print("What do you want to do?")
-        print("1. Kick")
-        print("2. Punch")
-        print("3. Flee")
-        print("> ",)
-        user_input = input()
-#Kick
-        if user_input == "1":
-            # Player attacks opponent
-            player.attack(opponent_list[0])
-            if opponent_list[0].is_alive() == False:
-                print("%s is dead.\n" % (opponent_list[0].name))
-                opponent_list.pop(0)
-                if len(opponent_list) >= 1:
-                        keep_playing = input("Do you want to keep fighting? (y or n) ")
-                        if keep_playing == 'y':
-                            player.health += 10
-                            player.attackpower += 10
-                            player.defense += 10
-                            print("\nYou have absorbed power from your opponent!")
-                            print("Health: %d \nPower: %d \nDefense: %d \n" % (player.health, player.attackpower, player.defense))
-                            print("Your next opponent is: %s" % (opponent_list[0]))
-                        else:
-                            print("Quitters never win!")
-                            break
-                else: 
-                    print(ending_story)
-                    break
-#Punch
-        elif user_input == "2":
-            # Player attacks opponent
-            player.attack(opponent_list[0])
-            if opponent_list[0].is_alive() == False:
-                print("%s is dead.\n" % (opponent_list[0].name))
-                opponent_list.pop(0)
-                if len(opponent_list) >= 1:
-                    keep_playing = input("Do you want to keep fighting? (y or n) ")
-                    if keep_playing == 'y':
-                        player.health += 10
-                        player.attackpower += 10
-                        player.defense += 10
-                        print("\nYou have absorbed power from your opponent!")
-                        print("Health: %d \nPower: %d \nDefense: %d \n" % (player.health, player.attackpower, player.defense))
-                        print("Your next opponent is: %s" % (opponent_list[0]))
-                    else:
-                        print("Quitters never win!")
-                        break
-                else: 
-                    print(ending_story)
-                    break
-#RUN AWAY!!!!
-        elif user_input == "3":
-            print("Quitters never Win!")
-            break
-        else:
-            print("Invalid input %r" % user_input)
-#Computer ATTACKS!
-        if player.health > 0:
-            # Opponent attacks player
-            opponent_list[0].attack(player)
-            if player.is_alive() == False:
-                print("%s is dead." %(player.name))
-
-
-main()
-
-#add play again statment
-# if __name__ == '__main__':
-#     while True:
-#         main()
-#         again = input('Would you like to play again? (y or n')
-#         if again in ('y'):
-#             break
+print("\nYour first opponent is: %s" % (opponent_list[0]))
+time.sleep(2)
+fight_text()
+sound("fight.wav")
+fight()
